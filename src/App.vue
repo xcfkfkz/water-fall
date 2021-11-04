@@ -22,16 +22,17 @@ export default {
     async setPos(parentNode) {
       const children = parentNode.children;
       let heightLeft = 0, heightRight = 0;
+      const gap = 10;
       const align = async (childNode, where) => {
         // 获取到父盒子实际宽度
         const imgInChild = childNode.querySelector('img');
         await this.imgLoaded(imgInChild);
         const childHeight = parseFloat(window.getComputedStyle(childNode).height);
         if (where === 'left') {
-          heightLeft += childHeight;
+          heightLeft += (childHeight + gap);
           childNode.classList.add('float-left')
         } else {
-          heightRight += childHeight;
+          heightRight += (childHeight + gap);
           childNode.classList.add('float-right')
         }
         childNode.classList.remove('non-vis')
@@ -44,11 +45,11 @@ export default {
     },
     async imgLoaded(imgNode) {
       if (imgNode.complete) {
-        return true;
+        return Promise.resolve();
       } else {
         return new Promise(resolve => {
           imgNode.addEventListener('load', () => {
-            resolve(true)
+            resolve()
           })
         })
       }
