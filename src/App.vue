@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="masonry">
+    <div class="item" :key="i.id" v-for="i in data">
+      <img :src="i.img">
+      <span class="title">{{i.value}}</span>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import data from "./data.json";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      data
+    };
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .masonry {
+    column-count: 3;
+    column-gap: 10px;
+    padding: 10px;
+  }
+  .item {
+    break-inside: avoid;
+    border: 1px solid #999;
+    margin-bottom: 10px;
+  }
+  img {
+    width: 100%;
+    vertical-align: middle;
+  }
+  .title {
+    display: block;
+    margin-left: 5px;
+  }
 </style>
